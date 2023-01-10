@@ -1,0 +1,13 @@
+aileron,0,-1,1
+elevator,1,-1,1
+rudder,2,-1,1
+throttle,6,-1,1
+yaw,20,-30,90
+airspeed,24,-100,200
+altimeter,25,-100,700
+roll,28,-40,50
+pitch,29,-10,17
+heading,36,0,360
+ip,127.0.0.1
+port,5400
+rate,20

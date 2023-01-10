@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="javafx-font_awesome">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../../../../javaFX/javafx-font_awesome" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/../../../../../javaFX/javafx-font_awesome" recursive="false" />
+  </library>
+</component>
