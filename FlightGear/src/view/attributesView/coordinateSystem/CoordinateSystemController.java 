@@ -1,0 +1,145 @@
+package view.attributesView.coordinateSystem;
+
+import java.net.URL;
+import java.util.*;
+
+import anomaly_detectors.Point;
+import com.sun.javafx.scene.paint.GradientUtils;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+
+public class CoordinateSystemController implements Initializable {
+	@FXML
+	Line x,y;
+	@FXML
+	AnchorPane board;
+	@FXML
+	Label title;
+	double height;
+	double width;
+	double maxValueX,maxValueY;
+	double minValueX,minValueY;
+	final List<Circle> points=new ArrayList<>();
+	final List<Point> pointList=new ArrayList<>();
+	final List<Line> lines=new ArrayList<>();
+	final List<Circle> circles=new ArrayList<>();
+
+	public CoordinateSystemController() {
+		maxValueX=10000;
+		minValueX=-10000;
+		maxValueY=10000;
+		minValueY=-10000;
+	}
+	public void changeSetting(double minX,double maxX,double minY,double maxY) {
+		if(maxX>minX&&maxY>minY){
+			maxValueX=Math.max(maxX,1)*1.2;//take 20% more space for convenience
+			minValueX=Math.min(minX,-1)*1.2;
+			maxValueY=Math.max(maxY,1)*1.2;
+			minValueY=Math.min(minY,-1)*1.2;
+			applyCoordinate();
+		}
+	}
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		height=board.getPrefHeight();
+		width=board.getPrefWidth();
+		applyCoordinate();
+	}
+	public void applyCoordinate(){
+		y.setStartX(width*(0-minValueX)/(maxValueX-minValueX));
+		y.setEndX(width*(0-minValueX)/(maxValueX-minValueX));
+		x.setStartY(height-height*(0-minValueY)/(maxValueY-minValueY));
+		x.setEndY(height-height*(0-minValueY)/(maxValueY-minValueY));
+		board.getChildren().removeAll(points);
+	}
+	public void addPoint(Point p,Paint color,double size) {
+		if(!pointList.contains(p)){
+			double x0=this.y.getEndX();
+			double y0=this.x.getEndY();
+			double displayX=x0+p.x/(maxValueX-minValueX)*width;
+			double displayY=y0-p.y/(maxValueY-minValueY)*height;
+			Circle toDisplay=new Circle();
+			toDisplay.setRadius(size);
+			toDisplay.setCenterX(displayX);
+			toDisplay.setCenterY(displayY);
+			toDisplay.setFill(color);
+			if(!points.contains(toDisplay)){
+				points.add(toDisplay);
+				pointList.add(p);
+				board.getChildren().add(toDisplay);
+			}
+		}
+	}
+	public void addLine(anomaly_detectors.Line l,Paint color) {
+		double valueForMinX=l.a*minValueX+l.b;
+		double valueForMaxX=l.a*maxValueX+l.b;
+		Line toDisplay=new Line();
+		toDisplay.setStroke(color);
+		toDisplay.setStrokeWidth(3.0);
+		double x0=this.y.getEndX();
+		double y0=this.x.getEndY();
+		if(valueForMinX>=minValueY&&valueForMinX<=maxValueY){
+			toDisplay.setStartX(x0+minValueX/(maxValueX-minValueX)*width);
+			toDisplay.setStartY(y0-valueForMinX/(maxValueY-minValueY)*height);
+		}
+		else{
+			double xForMinY=(minValueY-l.b)/l.a;
+			toDisplay.setStartX(x0+xForMinY/(maxValueX-minValueX)*width);
+			toDisplay.setStartY(y0-minValueY/(maxValueY-minValueY)*height);
+		}
+		if(valueForMaxX<=maxValueY&&valueForMaxX>=minValueY){
+			toDisplay.setEndX(x0+maxValueX/(maxValueX-minValueX)*width);
+			toDisplay.setEndY(y0-valueForMaxX/(maxValueY-minValueY)*height);
+		}
+		else{
+			double xForMaxY=(maxValueY-l.b)/l.a;
+			toDisplay.setEndX(x0+xForMaxY/(maxValueX-minValueX)*width);
+			toDisplay.setEndY(y0-maxValueY/(maxValueY-minValueY)*height);
+		}
+		board.getChildren().add(toDisplay);
+		lines.add(toDisplay);
+	}
+	public void addCircle(anomaly_detectors.Circle c, Paint color) {
+		double newMaxX=c.center.x+c.radius,newMinX=c.center.x-c.radius,newMaxY=c.center.y+c.radius,newMinY=c.center.y-c.radius;
+		changeSetting(Math.min(minValueX,newMinX),Math.max(newMaxX,maxValueX),
+				Math.min(minValueY,newMinY),Math.max(maxValueY,newMaxY));//if the circle is out of the bounds of the coordinate system
+		double x0=this.y.getEndX();
+		double y0=this.x.getEndY();
+		Circle toDisplay=new Circle();
+		toDisplay.setCenterX(x0+c.center.x/(maxValueX-minValueX)*width);
+		toDisplay.setCenterY(y0-c.center.y/(maxValueY-minValueY)*height);
+		toDisplay.setStroke(color);
+		double radiusDisplay=(x0+(c.center.x+c.radius)/(maxValueX-minValueX)*width-toDisplay.getCenterX());
+		toDisplay.setRadius(radiusDisplay);
+		toDisplay.setFill(Color.rgb(255, 255, 255, 0));
+		toDisplay.setStrokeWidth(3.0);
+		board.getChildren().add(toDisplay);
+		circles.add(toDisplay);
+	}
+	public void addSetPoints(Collection<Point> listPoints, Paint color,double size){
+		List<Point> tmp = new ArrayList<>(List.copyOf(listPoints));
+		tmp.removeAll(pointList);
+		tmp.forEach((p)->addPoint(p,color,size));
+	}
+	public void clearAll() {
+		board.getChildren().removeAll(points);
+		board.getChildren().removeAll(lines);
+		board.getChildren().removeAll(circles);
+		points.removeAll(points);
+		pointList.removeAll(pointList);
+		lines.removeAll(lines);
+		circles.removeAll(circles);
+	}
+	public void clearPoints(){
+		board.getChildren().removeAll(points);
+		points.removeAll(points);
+		pointList.removeAll(pointList);
+	}
+}

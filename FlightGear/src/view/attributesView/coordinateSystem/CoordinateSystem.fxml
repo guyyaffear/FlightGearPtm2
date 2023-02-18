@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="351.0" prefWidth="362.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.attributesView.coordinateSystem.CoordinateSystemController">
+    <children>
+        <AnchorPane fx:id="board" layoutX="35.0" layoutY="37.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="300.0">
+            <children>
+                <Line fx:id="y" endX="150.0" endY="300.0" startX="150.0" strokeWidth="1.0" />
+                <Line endX="300.0" endY="150.0" startY="150.0" strokeWidth="1.0" fx:id="x" />
+            </children>
+        </AnchorPane>
+        <Label fx:id="title" alignment="CENTER" layoutX="61.0" layoutY="7.0" prefHeight="27.0" prefWidth="248.0">
+            <font>
+                <Font name="System Bold Italic" size="18.0" />
+            </font>
+        </Label>
+    </children>
+</Pane>
