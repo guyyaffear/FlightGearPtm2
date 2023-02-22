@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="190.0" prefWidth="893.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.player.PlayerDisplayerController">
+    <children>
+        <Button layoutX="31.0" layoutY="79.0" mnemonicParsing="false" onAction="#openCSVFile" text="Open CSV File">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+        <FontAwesomeIcon fx:id="pauseIcon" glyphName="PAUSE" layoutX="278.0" layoutY="107.0" size="2em" />
+        <FontAwesomeIcon fx:id="playIcon" glyphName="PLAY" layoutX="245.0" layoutY="107.0" size="2em" />
+        <FontAwesomeIcon fx:id="stopIcon" glyphName="STOP" layoutX="318.0" layoutY="107.0" size="2em" />
+        <FontAwesomeIcon fx:id="forwardIcon" glyphName="FORWARD" layoutX="360.0" layoutY="107.0" size="2em" />
+        <FontAwesomeIcon fx:id="rewindIcon" glyphName="BACKWARD" layoutX="200.0" layoutY="107.0" size="2em" />
+        <Slider fx:id="timeLine" layoutX="14.0" layoutY="152.0" prefHeight="24.0" prefWidth="850.0" />
+        <Label layoutX="484.0" layoutY="85.0" text="Play Speed:">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <ComboBox fx:id="options" layoutX="598.0" layoutY="86.0" prefWidth="150.0" />
+        <Label fx:id="timeLabel" alignment="CENTER" layoutX="760.0" layoutY="84.0" prefHeight="27.0" prefWidth="114.0" text="00:00:00">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>

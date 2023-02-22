@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="467.0" prefWidth="702.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.tableClocks.TableClocksController">
+    <children>
+        <StackPane fx:id="altimeter" layoutX="12.0" layoutY="280.0" prefHeight="145.0" prefWidth="211.0" />
+        <StackPane fx:id="airspeed" layoutX="240.0" layoutY="280.0" prefHeight="145.0" prefWidth="211.0" />
+        <StackPane fx:id="heading" layoutX="468.0" layoutY="280.0" prefHeight="145.0" prefWidth="211.0" />
+        <StackPane fx:id="roll" layoutX="468.0" layoutY="89.0" prefHeight="145.0" prefWidth="211.0" />
+        <StackPane fx:id="pitch" layoutX="240.0" layoutY="89.0" prefHeight="145.0" prefWidth="211.0" />
+        <StackPane fx:id="yaw" layoutX="12.0" layoutY="89.0" prefHeight="145.0" prefWidth="211.0" />
+    </children>
+</Pane>
