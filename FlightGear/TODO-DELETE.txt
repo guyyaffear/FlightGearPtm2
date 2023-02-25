@@ -1,2 +1,0 @@
-need to add bin folders
-in src file -> hen vino and guy need to add there folders
